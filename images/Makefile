@@ -15,6 +15,7 @@ all:
 	$(MAKE) -C sde-analysis-adaptor all
 	$(MAKE) -C sde-analysis-adaptor-datashield all
 	$(MAKE) -C sde-control all
+	$(MAKE) -C sde-devel all
 	$(MAKE) -C sde-request-checker all
 	$(MAKE) -C sde-request-receiver all
 	$(MAKE) -C sde-response-checker all
@@ -36,6 +37,7 @@ all-sde:
 	$(MAKE) -C sde-analysis-adaptor all
 	$(MAKE) -C sde-analysis-adaptor-datashield all
 	$(MAKE) -C sde-control all
+	$(MAKE) -C sde-devel all
 	$(MAKE) -C sde-request-checker all
 	$(MAKE) -C sde-request-receiver all
 	$(MAKE) -C sde-response-checker all
@@ -61,6 +63,7 @@ push:
 	$(MAKE) -C sde-analysis-adaptor push
 	$(MAKE) -C sde-analysis-adaptor-datashield push
 	$(MAKE) -C sde-control push
+	$(MAKE) -C sde-devel push
 	$(MAKE) -C sde-request-checker push
 	$(MAKE) -C sde-request-receiver push
 	$(MAKE) -C sde-response-checker push
