@@ -66,7 +66,7 @@ public class AgreementsDataResource
 
         try
         {
-            MongoCursor<Document> cursor = mongoClient.getDatabase("sde").getCollection("/agreementsdata_infos").find().iterator();
+            MongoCursor<Document> cursor = mongoClient.getDatabase("sde").getCollection("agreementsdata_infos").find().iterator();
 
             try
             {
@@ -105,9 +105,9 @@ public class AgreementsDataResource
     @GET
     @Path("/data")
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonArray getData(@QueryParam("agreements_data_name") String agreementsDataName)
+    public JsonArray getAgreementsDataData(@QueryParam("agreements_data_name") String agreementsDataName)
     {
-        log.info("############ SDE - AgreementsDataResource::getData ############");
+        log.infof("############ SDE - AgreementsDataResource::getData(%s) ############", agreementsDataName);
 
         JsonArray list = new JsonArray();
 
@@ -117,11 +117,12 @@ public class AgreementsDataResource
 
             try
             {
-                while (cursor.hasNext())
+                if (cursor.hasNext())
                 {
                     Document document = cursor.next();
 
-                    list.add(document);
+                    JsonObject object = new JsonObject(document.toJson());
+                    list = object.getJsonArray("data");
                 }
             }
             finally
