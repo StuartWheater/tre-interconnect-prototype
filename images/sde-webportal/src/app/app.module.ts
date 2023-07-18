@@ -8,12 +8,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule }        from '@angular/common/http';
 
 import { MatToolbarModule }         from '@angular/material/toolbar';
-import { MatGridListModule }        from '@angular/material/grid-list';
 import { MatTabsModule }            from '@angular/material/tabs';
 import { MatTableModule }           from '@angular/material/table';
 import { MatPaginatorModule }       from '@angular/material/paginator';
+import { MatGridListModule }        from '@angular/material/grid-list';
 import { MatCardModule }            from '@angular/material/card';
 import { MatListModule }            from '@angular/material/list';
+import { MatDividerModule }         from '@angular/material/divider';
 import { MatFormFieldModule }       from '@angular/material/form-field';
 import { MatInputModule }           from '@angular/material/input';
 import { MatProgressBarModule }     from '@angular/material/progress-bar';
@@ -25,23 +26,26 @@ import { MatBadgeModule }           from '@angular/material/badge';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent }                   from './app.component';
-import { AgreementDataComponent }         from './agreement-data/agreement-data.component';
+import { AgreementsDataComponent }        from './agreements-data/agreements-data.component';
 import { InteractionHistoryComponent }    from './interaction-history/interaction-history.component';
 import { UncheckedRequestListComponent }  from './unchecked-request-list/unchecked-request-list.component';
 import { UncheckedResponseListComponent } from './unchecked-response-list/unchecked-response-list.component';
+import { DevelSupportComponent }          from './devel-support/devel-support.component';
 
 import { ConfigService }                  from './config.service';
 import { UncheckedInteractionLogService } from './unchecked-interaction-log.service';
+import { AgreementsDataService }          from './agreements-data.service';
 
 @NgModule
 ({
     declarations:
     [
         AppComponent,
-        AgreementDataComponent,
+        AgreementsDataComponent,
         InteractionHistoryComponent,
         UncheckedRequestListComponent,
-        UncheckedResponseListComponent
+        UncheckedResponseListComponent,
+        DevelSupportComponent
     ],
     imports:
     [
@@ -67,7 +71,8 @@ import { UncheckedInteractionLogService } from './unchecked-interaction-log.serv
     providers:
     [
         ConfigService,
-        UncheckedInteractionLogService
+        UncheckedInteractionLogService,
+        AgreementsDataService
     ],
     bootstrap:
     [
