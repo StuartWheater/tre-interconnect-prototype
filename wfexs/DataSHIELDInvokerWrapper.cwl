@@ -1,28 +1,17 @@
-# Common Workflow Language DataSHIELD Invoker
-
-#cwlVersion: v1.2
-
-# class: CommandLineTool
-# baseCommand: echo
-
-## The inputs for this process.
-# inputs:
-#  message:
-#    type: string
-#    default: "Hello World"
-#    inputBinding:
-#      position: 1
-# outputs: []
+# Common Workflow Language DataSHIELD Invoker Wrapper
 
 cwlVersion: v1.2
 
 class: Workflow
-id: datashield_invoker
-label: datashield_invoker
+id: datashield_invoker_wrapper
+label: datashield_invoker_wrapper
 
 inputs:
     message:
         type: string
+        default: "Hello DataSHIELD"
+        inputBinding:
+             position: 1
 
 outputs:
     result_out:
@@ -31,8 +20,8 @@ outputs:
 
 steps:
     datashield_invoker:
-        run: ./DataSHIELDInvoker.cwl
+        run: https://raw.githubusercontent.com/StuartWheater/tre-interconnect-prototype/with_wfexs/wfexs/DataSHIELDInvoker.cwl
         in:
             message: message
             
-        out: [example_out]
+        out: [result_out]
