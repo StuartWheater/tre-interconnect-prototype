@@ -10,6 +10,17 @@ metadata:
     app: sde
 spec:
   containers:
+  - keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    ports:
+      - containerPort: 8080
+        hostPort: 8095
+    env:
+      - name: KEYCLOAK_ADMIN
+        value: "admin"
+      - name: KEYCLOAK_ADMIN_PASSWORD
+        value: "password"
+    args: ["start-dev"]
   - name: activemq
     image: quay.io/artemiscloud/activemq-artemis-broker-kubernetes:latest
     ports:
