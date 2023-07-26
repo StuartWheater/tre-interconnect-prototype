@@ -3,25 +3,36 @@
 cwlVersion: v1.2
 
 class: Workflow
-id: datashield_invoker_wrapper
-label: datashield_invoker_wrapper
 
 inputs:
-    message:
+    platformname:
         type: string
-        default: "Hello DataSHIELD"
-        inputBinding:
-             position: 1
+    profilename:
+        type: string
+    symbolnameslist:
+        type: string
+    tablenameslist:
+        type: string
+    workspacename:
+        type: string
+    rscript:
+        type: string
 
 outputs:
-    result_out:
+    response:
         type: File
-        outputSource: datashield/example_out
+        outputSource: datashieldinvoker/response
 
 steps:
-    datashield_invoker:
-        run: https://raw.githubusercontent.com/StuartWheater/tre-interconnect-prototype/with_wfexs/wfexs/DataSHIELDInvoker.cwl
+    datashieldinvoker:
+        run: ./DataSHIELDInvoker.cwl
+
         in:
-            message: message
-            
-        out: [result_out]
+            platformname:    platformname
+            profilename:     profilename
+            symbolnameslist: symbolnameslist
+            tablenameslist:  tablenameslist
+            workspacename:   workspacename
+            rscript:         rscript
+
+        out: [ response ]
