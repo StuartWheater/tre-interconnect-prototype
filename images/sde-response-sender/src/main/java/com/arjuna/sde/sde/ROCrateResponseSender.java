@@ -36,15 +36,13 @@ public class ROCrateResponseSender
     @Blocking
     @Incoming("rs_incoming")
     @Outgoing("rs_outgoing")
-    public RoCrate sendResponse(JsonObject responseObject)
+    public JsonObject sendResponse(JsonObject responseObject)
     {
         try
         {
             log.info("############ SDE - ROCrateResponseSender::sendResponse ############");
 
-            RoCrate response = objectMapper.convertValue(responseObject, RoCrate.class);
-
-            return response;
+            return responseObject;
         }
         catch (Error error)
         {
