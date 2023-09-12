@@ -11,6 +11,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.jboss.logging.Logger;
 
+import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
 import io.vertx.core.json.JsonObject;
@@ -32,10 +34,15 @@ public class ROCrateAnalysisDispatcher
     @Inject
     public ObjectMapper objectMapper;
 
+    @Channel("ad_outgoing")
+    public Emitter<JsonObject> responseEmitter;
+
+    @Channel("dsa_outgoing")
+    public Emitter<JsonObject> analysisRequestEmitter;
+
     @Blocking
-    @Incoming("aa_incoming")
-    @Outgoing("aa_outgoing")
-    public JsonObject dispatchAnalysis(JsonObject requestJson)
+    @Incoming("ad_incoming")
+    public void dispatchAnalysis(JsonObject requestJson)
     {
         try
         {
@@ -43,50 +50,71 @@ public class ROCrateAnalysisDispatcher
 
             if (requestJson.containsKey("allContextualEntities") && (requestJson.getJsonArray("allContextualEntities") != null))
             {
-                JsonArray allContextualEntities = requestJson.getJsonArray("allContextualEntities");
+                String requestType = null;
+                JsonArray requestContextualEntities = requestJson.getJsonArray("allContextualEntities");
+                for (int index = 0; index < requestContextualEntities.size(); index++)
+                {
+                    JsonObject entity = requestContextualEntities.getJsonObject(index);
+                    if ((entity != null) && entity.containsKey("@type") && entity.getString("@type").equals("FederatedAnalysis") && entity.containsKey("request-type") && entity.getString("request-type").equals("DataSHIELDAnalysis"))
+                        requestType = entity.getString("request-type");
+                }
 
-                JsonObject requestErrorEntity = new JsonObject();
-                requestErrorEntity.put("@type", "Response");
-                requestErrorEntity.put("@id", "http://example.org/" + UUID.randomUUID().toString());
-                requestErrorEntity.put("message", "The answer to life, the universe, and everything is 42");
+                if ("DataSHIELDAnalysis".equals(requestType))
+                    analysisRequestEmitter.send(requestJson);
+                else
+                {
+                    unknownRequestTypeRequested(requestJson);
 
-                allContextualEntities.add(requestErrorEntity);
-
-                return requestJson;
+                    responseEmitter.send(requestJson);
+                }
             }
             else
-                return unknownRequestTypeRequested(requestJson);
+            {
+                requestJson.put("allContextualEntities", new JsonArray());
+
+                noRequestTypeRequested(requestJson);
+
+                responseEmitter.send(requestJson);
+            }
         }
         catch (Error error)
         {
-            log.error("Error while forwarding request RO_Crate", error);
-            return null;
+            log.error("Error while dispatching request RO_Crate", error);
         }
         catch (Exception exception)
         {
-            log.error("Exception while forwarding request RO_Crate", exception);
-            return null;
+            log.error("Exception while dispatching request RO_Crate", exception);
         }
     }
 
-    private JsonObject unknownRequestTypeRequested(JsonObject requestJson)
+    private void noRequestTypeRequested(JsonObject requestJson)
     {
-        JsonArray allContextualEntities = null;
-        if ((! requestJson.containsKey("allContextualEntities")) || (requestJson.getJsonArray("allContextualEntities") == null))
-        {
-            allContextualEntities = new JsonArray();
-            requestJson.put("allContextualEntities", allContextualEntities);
-        }
-        else
-            allContextualEntities = requestJson.getJsonArray("allContextualEntities");
+        JsonObject responseErrorEntity = new JsonObject();
+        responseErrorEntity.put("@type", "RequestError");
+        responseErrorEntity.put("@id", "http://example.org/" + UUID.randomUUID().toString());
+        responseErrorEntity.put("message", "No Request Type");
 
+        JsonArray allContextualEntities = requestJson.getJsonArray("allContextualEntities");
+        allContextualEntities.add(responseErrorEntity);
+    }
+
+    private void unknownRequestTypeRequested(JsonObject requestJson)
+    {
         JsonObject requestErrorEntity = new JsonObject();
         requestErrorEntity.put("@type", "RequestError");
         requestErrorEntity.put("@id", "http://example.org/" + UUID.randomUUID().toString());
         requestErrorEntity.put("message", "Unknown Request Type");
 
+        JsonArray allContextualEntities = requestJson.getJsonArray("allContextualEntities");
         allContextualEntities.add(requestErrorEntity);
+    }
 
-        return requestJson;
+    @Blocking
+    @Incoming("dsa_incoming")
+    public void analysisResponseProcessor(JsonObject responseJson)
+    {
+        log.info("############ SDE - ROCrateAnalysisDispatcher::analysisResponseProcessor ############");
+
+        responseEmitter.send(responseJson);
     }
 }
