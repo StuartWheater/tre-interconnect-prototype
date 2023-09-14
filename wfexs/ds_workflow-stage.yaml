@@ -5,7 +5,8 @@ workflow_config:
 params:
   request_1:
     c-l-a-s-s: File
-    url: http://localhost:8888/arjuna/request.dat
+    url:
+      - http://localhost:8888/arjuna/request.dat
 outputs:
   dataframe:
     c-l-a-s-s: File
