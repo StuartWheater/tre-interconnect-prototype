@@ -50,6 +50,23 @@ public class ROCrateAnalysisDispatcher
 
             if (requestJson.containsKey("allContextualEntities") && (requestJson.getJsonArray("allContextualEntities") != null))
             {
+                String requestType = null;
+                JsonArray requestContextualEntities = requestJson.getJsonArray("allContextualEntities");
+                for (int index = 0; index < requestContextualEntities.size(); index++)
+                {
+                    JsonObject entity = requestContextualEntities.getJsonObject(index);
+                    if ((entity != null) && entity.containsKey("@type") && entity.getString("@type").equals("FederatedAnalysis") && entity.containsKey("request-type") && entity.getString("request-type").equals("DataSHIELDAnalysis"))
+                        requestType = entity.getString("request-type");
+                }
+
+                if ("DataSHIELDAnalysis".equals(requestType))
+                    analysisRequestEmitter.send(requestJson);
+                else
+                {
+                    unknownRequestTypeRequested(requestJson);
+
+                    responseEmitter.send(requestJson);
+                }
             }
             else
             {
@@ -68,17 +85,6 @@ public class ROCrateAnalysisDispatcher
         {
             log.error("Exception while dispatching request RO_Crate", exception);
         }
-    }
-
-    private void ultimateQuestionRequestTypeRequested(JsonObject requestJson)
-    {
-        JsonObject responseEntity = new JsonObject();
-        responseEntity.put("@type", "Response");
-        responseEntity.put("@id", "http://example.org/" + UUID.randomUUID().toString());
-        responseEntity.put("message", "The answer to life, the universe, and everything is 42");
-
-        JsonArray allContextualEntities = requestJson.getJsonArray("allContextualEntities");
-        allContextualEntities.add(responseEntity);
     }
 
     private void noRequestTypeRequested(JsonObject requestJson)
@@ -107,6 +113,8 @@ public class ROCrateAnalysisDispatcher
     @Incoming("dsa_incoming")
     public void analysisResponseProcessor(JsonObject responseJson)
     {
+        log.info("############ SDE - ROCrateAnalysisDispatcher::analysisResponseProcessor ############");
+
         responseEmitter.send(responseJson);
     }
 }
