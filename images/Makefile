@@ -11,7 +11,6 @@ all:
 	$(MAKE) -C lab-webportal all
 	$(MAKE) -C lab-devel all
 	$(MAKE) -C dmz-response-router all
-	$(MAKE) -C sde-analysis-dispatcher all
 	$(MAKE) -C sde-control all
 	$(MAKE) -C sde-devel all
 	$(MAKE) -C sde-request-checker all
@@ -19,30 +18,9 @@ all:
 	$(MAKE) -C sde-response-checker all
 	$(MAKE) -C sde-response-sender all
 	$(MAKE) -C sde-webportal all
-	$(MAKE) -C anal-datashield-adaptor all
-
-all-lab:
-	$(MAKE) -C lab-request-creator all
-	$(MAKE) -C lab-request-sender all
-	$(MAKE) -C lab-response-processor all
-	$(MAKE) -C lab-webportal all
-	$(MAKE) -C lab-devel all
-
-all-dmz:
-	$(MAKE) -C dmz-response-router all
-
-all-sde:
 	$(MAKE) -C sde-analysis-dispatcher all
-	$(MAKE) -C sde-control all
-	$(MAKE) -C sde-devel all
-	$(MAKE) -C sde-request-checker all
-	$(MAKE) -C sde-request-receiver all
-	$(MAKE) -C sde-response-checker all
-	$(MAKE) -C sde-response-sender all
-	$(MAKE) -C sde-webportal all
-
-all-anal:
 	$(MAKE) -C anal-datashield-adaptor all
+	$(MAKE) -C anal-datashield-armadillo all
 
 push:
 	$(MAKE) -C lab-request-creator push
@@ -51,7 +29,6 @@ push:
 	$(MAKE) -C lab-webportal push
 	$(MAKE) -C lab-devel push
 	$(MAKE) -C dmz-response-router push
-	$(MAKE) -C sde-analysis-dispatcher push
 	$(MAKE) -C sde-control push
 	$(MAKE) -C sde-devel push
 	$(MAKE) -C sde-request-checker push
@@ -59,7 +36,9 @@ push:
 	$(MAKE) -C sde-response-checker push
 	$(MAKE) -C sde-response-sender push
 	$(MAKE) -C sde-webportal push
+	$(MAKE) -C sde-analysis-dispatcher push
 	$(MAKE) -C anal-datashield-adaptor push
+	$(MAKE) -C anal-datashield-armadillo push
 
 clean:
 	$(MAKE) -C lab-request-creator clean
@@ -76,6 +55,7 @@ clean:
 	$(MAKE) -C sde-response-sender clean
 	$(MAKE) -C sde-webportal clean
 	$(MAKE) -C anal-datashield-adaptor clean
+	$(MAKE) -C anal-datashield-armadillo clean
 
 purge:
 	$(MAKE) -C lab-request-creator purge
@@ -92,3 +72,4 @@ purge:
 	$(MAKE) -C sde-response-sender purge
 	$(MAKE) -C sde-webportal purge
 	$(MAKE) -C anal-datashield-adaptor purge
+	$(MAKE) -C anal-datashield-armadillo purge

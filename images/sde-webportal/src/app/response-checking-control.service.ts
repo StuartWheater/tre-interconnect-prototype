@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable }  from '@angular/core';
 import { HttpClient }  from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpParams }  from '@angular/common/http';
@@ -11,33 +11,32 @@ import { ConfigService } from './config.service';
 ({
     providedIn: 'root'
 })
-export class AgreementsDataService
+export class ResponseCheckingControlService
 {
-    private getAgreementsDataSummariesServicePath = "/service/control/agreementsdata/summaries";
-    private getAgreementsDataDataServicePath      = "/service/control/agreementsdata/data";
+    private listResponseCheckersServicePath = "/service/response_checker/list_response_checkers";
 
     public constructor(private configService: ConfigService, private httpClient: HttpClient)
     {
     }
 
-    public getAgreementsDataSummaries(): Observable<any>
+    public responseCheckerList(): Observable<Object>
     {
         let headers = new HttpHeaders();
         headers = headers.append("Accept", "application/json");
         headers = headers.append("Content-Type", "application/json");
         let params  = new HttpParams();
 
-        return this.httpClient.get<any>(this.configService.serverURL + this.getAgreementsDataSummariesServicePath, { headers: headers, params: params });
+        return this.httpClient.get<Object>(this.configService.serverURL + this.listResponseCheckersServicePath, { headers: headers, params: params });
     }
 
-    public getAgreementsDataData(name: string): Observable<any>
+    public saveResponseCheckerList(responseCheckers: any): Observable<Object>
     {
         let headers = new HttpHeaders();
         headers = headers.append("Accept", "application/json");
         headers = headers.append("Content-Type", "application/json");
-        let params  = new HttpParams();
-        params = params.append("agreements_data_name", name);
+        let params = new HttpParams();
+        let body   = { "checkers": responseCheckers };
 
-        return this.httpClient.get<any>(this.configService.serverURL + this.getAgreementsDataDataServicePath, { headers: headers, params: params });
+        return this.httpClient.post<Object>(this.configService.serverURL + this.listResponseCheckersServicePath, body, { headers: headers, params: params });
     }
 }

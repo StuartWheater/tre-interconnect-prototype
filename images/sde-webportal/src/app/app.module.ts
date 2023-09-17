@@ -22,31 +22,39 @@ import { MatProgressBarModule }     from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule }          from '@angular/material/button';
 import { MatIconModule }            from '@angular/material/icon';
+import { MatSlideToggleModule }     from '@angular/material/slide-toggle';
+
 import { MatBadgeModule }           from '@angular/material/badge';
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { AppComponent }                   from './app.component';
-import { AgreementsDataComponent }        from './agreements-data/agreements-data.component';
-import { InteractionHistoryComponent }    from './interaction-history/interaction-history.component';
-import { UncheckedRequestListComponent }  from './unchecked-request-list/unchecked-request-list.component';
-import { UncheckedResponseListComponent } from './unchecked-response-list/unchecked-response-list.component';
-import { DevelSupportComponent }          from './devel-support/devel-support.component';
+import { AppComponent }                     from './app.component';
+import { AgreementDatasComponent }          from './agreement-datas/agreement-datas.component';
+import { InteractionHistoryComponent }      from './interaction-history/interaction-history.component';
+import { UncheckedRequestListComponent }    from './unchecked-request-list/unchecked-request-list.component';
+import { UncheckedResponseListComponent }   from './unchecked-response-list/unchecked-response-list.component';
+import { RequestCheckingControlComponent }  from './request-checking-control/request-checking-control.component';
+import { ResponseCheckingControlComponent } from './response-checking-control/response-checking-control.component';
+import { DevelSupportComponent }            from './devel-support/devel-support.component';
 
 import { ConfigService }                  from './config.service';
 import { UncheckedInteractionLogService } from './unchecked-interaction-log.service';
-import { AgreementsDataService }          from './agreements-data.service';
+import { RequestCheckingControlService }  from './request-checking-control.service';
+import { ResponseCheckingControlService } from './response-checking-control.service';
+import { AgreementDatasService }          from './agreement-datas.service';
 
 @NgModule
 ({
     declarations:
     [
         AppComponent,
-        AgreementsDataComponent,
+        AgreementDatasComponent,
         InteractionHistoryComponent,
         UncheckedRequestListComponent,
         UncheckedResponseListComponent,
-        DevelSupportComponent
+        DevelSupportComponent,
+        RequestCheckingControlComponent,
+        ResponseCheckingControlComponent
     ],
     imports:
     [
@@ -68,13 +76,16 @@ import { AgreementsDataService }          from './agreements-data.service';
         MatButtonModule,
         MatIconModule,
         MatBadgeModule,
+        MatSlideToggleModule,
         AppRoutingModule
     ],
     providers:
     [
         ConfigService,
         UncheckedInteractionLogService,
-        AgreementsDataService
+        RequestCheckingControlService,
+        ResponseCheckingControlService,
+        AgreementDatasService
     ],
     bootstrap:
     [
