@@ -3,6 +3,7 @@ crypt4gh:
     pub: cert/ds.pub
     passphrase: trefx
 tools:
+    containerType: podman
     dockerCommand: podman
     encrypted_fs:
         type: gocryptfs
