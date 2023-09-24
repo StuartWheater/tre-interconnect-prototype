@@ -1,6 +1,0 @@
-platformname: ionic
-profilename: aqueduct
-symbolnameslist: D
-tablenameslist: CNSIM2
-workspacename: ws
-rscript: lsDS('D')
