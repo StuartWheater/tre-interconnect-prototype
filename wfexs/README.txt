@@ -4,7 +4,7 @@
 
 mkdir ./cert
 
-crypt4gh-keygen --sk .cert/ds.key --pk ./cert/ds.pub
+crypt4gh-keygen --sk ./cert/ds.key --pk ./cert/ds.pub
 
 Passphrase 'trefx'
 
