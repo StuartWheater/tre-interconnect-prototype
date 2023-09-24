@@ -14,13 +14,16 @@ Passphrase 'trefx'
 
 # Start (in kude dir)
 
-podman play kube test-wfexs.yml
-podman pod logs -f test-trefx
+rm -rf minio-data
+tar xf minio-data.tar.gz
+
+podman play kube ds-minio.yml
+podman pod logs -f ds-minio
 
 # [Stop & Cleanup]
 
-podman pod stop test-trefx
-podman pod rm test-trefx
+podman pod stop ds-minio
+podman pod rm ds-minio
 
 #
 # Run Workflow
