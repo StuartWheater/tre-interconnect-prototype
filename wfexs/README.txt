@@ -9,23 +9,6 @@ crypt4gh-keygen --sk ./cert/ds.key --pk ./cert/ds.pub
 Passphrase 'trefx'
 
 #
-# Run Minio
-#
-
-# Start (in kude dir)
-
-rm -rf minio-data
-tar xf minio-data.tar.gz
-
-podman play kube ds-minio.yml
-podman pod logs -f ds-minio
-
-# [Stop & Cleanup]
-
-podman pod stop ds-minio
-podman pod rm ds-minio
-
-#
 # Run Workflow
 #
 
