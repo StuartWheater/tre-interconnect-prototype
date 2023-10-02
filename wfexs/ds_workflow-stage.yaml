@@ -1,15 +1,16 @@
 workflow_id: https://raw.githubusercontent.com/StuartWheater/tre-interconnect-prototype/with_wfexs/wfexs/DataSHIELDInvokerWrapper.cwl
 version: 1
 workflow_config:
-  secure: false
+    containerType: podman
+    secure: false
 params:
-  platformname: "ionic"
-  profilename: "aqueduct"
-  symbolnameslist: "D"
-  tablenameslist: "CNSIM2"
-  workspacename: "ws"
-  rscript: "lsDS('D')"
+    platformname: "ionic"
+    profilename: "default"
+    symbolnameslist: "D"
+    tablenameslist: "datashield/cnsim/CNSIM1"
+    workspacename: "ws"
+    rscript: "lsDS(NULL,1L)"
 outputs:
-  dataframe:
-    c-l-a-s-s: File
-    preferredName: 'response.dat'
+    dataframe:
+        c-l-a-s-s: File
+        preferredName: 'response.dat'

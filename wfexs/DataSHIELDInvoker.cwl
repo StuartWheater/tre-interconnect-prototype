@@ -3,25 +3,23 @@
 cwlVersion: v1.2
 
 class:       CommandLineTool
-baseCommand: echo
-stdout:      response.dat
+# baseCommand: [java, --jar, anal-datashield-invoker-run.jar]
+baseCommand: [echo, --jar, anal-datashield-invoker-run.jar]
+stdout:      response.out
 stderr:      invoker.err
 
 # The inputs for this process.
 inputs:
     platformname:
         type: string
-        default: "ionic"
         inputBinding:
             position: 1
     profilename:
         type: string
-        default: "aqueduct"
         inputBinding:
             position: 2
     symbolnameslist:
         type: string
-        default: "D"
         inputBinding:
             position: 3
     tablenameslist:
@@ -30,7 +28,6 @@ inputs:
             position: 4
     workspacename:
         type: string
-        default: "ws"
         inputBinding:
             position: 5
     rscript:
