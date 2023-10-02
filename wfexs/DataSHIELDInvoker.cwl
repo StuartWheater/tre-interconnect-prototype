@@ -3,7 +3,8 @@
 cwlVersion: v1.2
 
 class:       CommandLineTool
-baseCommand: [java, --jar, anal-datashield-invoker-run.jar]
+# baseCommand: [java, --jar, anal-datashield-invoker-run.jar]
+baseCommand: [echo, --jar, anal-datashield-invoker-run.jar]
 stdout:      response.out
 stderr:      invoker.err
 

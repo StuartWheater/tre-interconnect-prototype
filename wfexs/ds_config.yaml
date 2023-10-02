@@ -4,7 +4,7 @@ crypt4gh:
     passphrase: trefx
 tools:
     containerType: podman
-    dockerCommand: podman
+    podmanCommand: podman
     encrypted_fs:
         type: gocryptfs
     engineMode: local
