@@ -20,8 +20,7 @@ inputs:
 
 outputs:
     response:
-        type: File
-        outputSource: datashieldinvoker/response
+        type: stdout
 
 steps:
     datashieldinvoker:
