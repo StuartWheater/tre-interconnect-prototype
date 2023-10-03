@@ -11,6 +11,6 @@ params:
     workspacename: "ws"
     rscript: "lsDS(NULL,1L)"
 outputs:
-    dataframe:
+    response:
         c-l-a-s-s: File
         preferredName: 'response.dat'

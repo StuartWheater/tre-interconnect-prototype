@@ -3,9 +3,8 @@
 cwlVersion: v1.2
 
 class:       CommandLineTool
-baseCommand: [ls, -l]
-# baseCommand: [java, --jar, anal-datashield-invoker-run.jar]
-stdout:      response.out
+baseCommand: workflow/wfexs/anal-datashield-invoker-runner
+stdout:      invoker.out
 stderr:      invoker.err
 
 # The inputs for this process.
@@ -37,5 +36,5 @@ inputs:
 
 # The outputs for this process.
 outputs:
-    response:
+    invoker_response:
         type: stdout

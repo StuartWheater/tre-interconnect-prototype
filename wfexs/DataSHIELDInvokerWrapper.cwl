@@ -20,10 +20,11 @@ inputs:
 
 outputs:
     response:
-        type: stdout
+        type: File
+        outputSource: invoker/invoker_response
 
 steps:
-    datashieldinvoker:
+    invoker:
         run: ./DataSHIELDInvoker.cwl
 
         in:
@@ -34,4 +35,4 @@ steps:
             workspacename:   workspacename
             rscript:         rscript
 
-        out: [ response ]
+        out: [ invoker_response ]
