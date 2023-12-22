@@ -51,11 +51,11 @@ spec:
         value: "localhost"
       - name: NGINX_PORT
         value: "80"
-  - name: request_creator
+  - name: request-creator
     image: docker.io/risbic/lab-request-creator:latest
-  - name: response_processor
+  - name: response-processor
     image: docker.io/risbic/lab-response-processor:latest
-  - name: request_sender
+  - name: request-sender
     image: docker.io/risbic/lab-request-sender:latest
     env:
       - name: DMZ_AMQPBROKER_HOST
@@ -76,13 +76,13 @@ spec:
   volumes:
     - name: devel-data
       hostPath:
-        path: ./devel-data/lab
+        path: /tmp/devel-data/lab
         type: DirectoryOrCreate
     - name: mongo-data
       hostPath:
-        path: ./lab-data/mongo
+        path: /tmp/lab-data/mongo
         type: DirectoryOrCreate
     - name: minio-data
       hostPath:
-        path: ./lab-data/minio
+        path: /tmp/lab-data/minio
         type: DirectoryOrCreate

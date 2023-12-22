@@ -37,5 +37,5 @@ spec:
   volumes:
     - name: analysis-datashield-armadillo
       hostPath:
-        path: ./analysis-data/datashield/armadillo
+        path: /tmp/analysis-data/datashield/armadillo
         type: DirectoryOrCreate

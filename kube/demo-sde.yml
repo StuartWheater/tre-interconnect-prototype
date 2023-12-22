@@ -46,7 +46,7 @@ spec:
       - name: MINIO_ROOT_PASSWORD
         value: "password"
     args: ["server", "/data", "--address", ":9000", "--console-address", ":9001"]
-  - name: request_receiver
+  - name: request-receiver
     image: docker.io/risbic/sde-request-receiver:latest
     env:
       - name: DMZ_AMQPBROKER_HOST
@@ -59,9 +59,9 @@ spec:
           configMapKeyRef:
             name: demo-config
             key: dmz_amqpbroker_port
-  - name: request_checker
+  - name: request-checker
     image: docker.io/risbic/sde-request-checker:latest
-  - name: analysis_dispacher
+  - name: analysis-dispacher
     image: docker.io/risbic/sde-analysis-dispatcher:latest
     env:
       - name: ANALYSIS_DS_AMQPBROKER_HOST
@@ -74,9 +74,9 @@ spec:
           configMapKeyRef:
             name: demo-config
             key: analysis_ds_amqpbroker_port
-  - name: response_checker
+  - name: response-checker
     image: docker.io/risbic/sde-response-checker:latest
-  - name: response_sender
+  - name: response-sender
     image: docker.io/risbic/sde-response-sender:latest
     env:
       - name: DMZ_AMQPBROKER_HOST
@@ -99,13 +99,13 @@ spec:
   volumes:
     - name: devel-data
       hostPath:
-        path: ./devel-data/sde
+        path: /tmp/devel-data/sde
         type: DirectoryOrCreate
     - name: mongo-data
       hostPath:
-        path: ./sde-data/mongo
+        path: /tmp/sde-data/mongo
         type: DirectoryOrCreate
     - name: minio-data
       hostPath:
-        path: ./sde-data/minio
+        path: /tmp/sde-data/minio
         type: DirectoryOrCreate
