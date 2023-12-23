@@ -1,0 +1,25 @@
+#
+# Copyright (c) 2023, Arjuna Technologies Limited, Newcastle upon Tyne, Tyne and Wear, UK.
+#
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-lab-services
+  labels:
+    run: demo-lab-services
+spec:
+  selector:
+    run: demo-lab
+  type: NodePort
+  ports:
+    - name: http
+      portocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 30080
+    - name: amqp
+      protocol: TCP
+      port: 5672
+      targetPort: 5672
+      nodePort: 30672
