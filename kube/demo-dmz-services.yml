@@ -1,0 +1,20 @@
+#
+# Copyright (c) 2023, Arjuna Technologies Limited, Newcastle upon Tyne, Tyne and Wear, UK.
+#
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-dmz-services
+  labels:
+    run: demo-dmz-services
+spec:
+  selector:
+    run: demo-dmz
+  type: NodePort
+  ports:
+    - name: amqp
+      protocol: TCP
+      port: 5872
+      targetPort: 5872
+      nodePort: 30872
