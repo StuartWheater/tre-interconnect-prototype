@@ -13,7 +13,7 @@ image::lab_deployment.png[align=center,width=50%,scaledwidth=50%,pdfwidth=50%]
 this network zone is assumed to exist in some form in all TREs, a secure location from which administrative action can be performed on other parts of this TRE. In this demo the Admin network zone is assumed to be accessible from the Internet.
 
 == DMZ network zone
-this network zone contains microservices which isolate the other network zones within the TRE from the internet. The DMZ network zone does not initiate interactions with other network zones within the TRE.
+this network zone contains microservices which isolate the other network zones within the TRE from the internet. The DMZ network zone does not initiate interactions with other network zones within the TRE. 
 
 .DMZ Deployment 
 image::dmz_deployment.png[align=center,width=50%,scaledwidth=50%,pdfwidth=50%]
